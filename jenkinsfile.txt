@@ -26,4 +26,13 @@ pipeline{
         }
     }
    }
+      post {
+        always {
+            script {
+                if (currentBuild.currentResult == 'FAILURE') {
+                    step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "svas258@gmail.com", sendToIndividuals: true])
+                }
+            }
+        }
+    }
 }
