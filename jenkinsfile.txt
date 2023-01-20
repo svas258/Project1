@@ -6,21 +6,23 @@ pipeline{
    stages {
     stage ('compile') {
         steps{
-            dir("ABC_Technologies")
-            sh 'pwd'
-            sh 'mvn compile'
+            dir("ABC_Technologies"){
+               sh 'mvn compile'
+               }
         }
     }
     stage ('Test'){
         steps{
-            dir("ABC_Technologies")
-            sh 'mvn test'
+            dir("ABC_Technologies"){
+               sh 'mvn test'
+               }
         }
     }
     stage ('Build'){
         steps{
-            dir("ABC_Technologies")
-            sh 'mvn clean build'
+            dir("ABC_Technologies"){
+               sh 'mvn clean build'
+               }
         }
     }
    }
