@@ -21,7 +21,7 @@ pipeline{
     stage ('Build'){
         steps{
             dir("ABC_Technologies"){
-               sh 'mvn clean package'
+               sh 'mvn clean build'
                }
         }
     }
