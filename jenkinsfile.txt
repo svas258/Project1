@@ -5,6 +5,10 @@ pipeline{
    }
    environment {
         EMAIL_TO = 'abc_tec@abc.com'
+        DATE = new Date().format('yy.M')
+        TAG = "${DATE}.${BUILD_NUMBER}"
+        docker_reg="srinidocker003/app"
+        docker_cred="docker-id"
     }
    stages {
     stage ('compile') {
@@ -28,6 +32,22 @@ pipeline{
                }
         }
     }
+    stage('Docker Build') {
+            steps {
+                script {
+                    docker.build("${docker_reg}:${TAG}")
+                }
+            }
+        }
+        stage('Pushing Docker Image to Dockerhub') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', '${docker_cred}') {
+                        docker.image("${docker_reg}:${TAG}").push()
+                        docker.image("${docker_reg}:${TAG}").push("latest")
+                    }
+                }
+            }
    }
      post {
         failure {
