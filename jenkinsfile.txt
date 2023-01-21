@@ -42,7 +42,7 @@ pipeline{
         stage('Pushing Docker Image to Dockerhub') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', '${docker_cred}') {
+                    docker.withRegistry('https://registry.hub.docker.com',docker_cred) {
                         docker.image("${docker_reg}:${TAG}").push()
                         docker.image("${docker_reg}:${TAG}").push("latest")
                     }
