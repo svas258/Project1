@@ -55,7 +55,8 @@ pipeline{
             steps {
                script{
                      def image_id = docker_reg + ":latest"
-                     sh "ansible-playbook abc_tech_playbook.yaml --extra-vars \"image_id=${image_id} name_space_name=abc-tech\""
+                     sh "echo $image_id"
+                     sh "ansible-playbook abc_tech_playbook.yaml --extra-vars "image_id=${image_id} name_space_name=abc-tech""
                      }
                    }
            }
