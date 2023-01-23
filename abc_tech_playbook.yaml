@@ -10,45 +10,13 @@
     - name: Deploy the app
       kubernetes.core.k8s:
         state: present
-        definition:
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: "{{ name_space_name }}"
-          namespace: "{{ name_space_name }}"
-        spec:
-          selector:
-            matchLabels:
-              app: "{{ name_space_name }}-app"
-          replicas: 1
-          template:
-            metadata:
-              labels:
-                app: "{{ name_space_name }}-app"
-            spec:
-              containers:
-                - name: "{{ name_space_name }}-container"
-                  image: "{{ image_id }}"
-                  ports:
-                  - containerPort: 80
+        validate_certs: no
+        namespace: "{{ name_space_name }}"
+        definition: "{{ lookup('template', 'deployment.yml') | from_yaml }}
     - name: Deploy the service
       kubernetes.core.k8s:
         state: present
-        definition:
-          apiVersion: v1
-          kind: Service
-          metadata:
-            name: "{{ name_space_name }}-srv"
-            namespace: "{{ name_space_name }}"
-            labels:
-              app: "{{ name_space_name }}-app"
-          spec:
-            type: NodePort
-            ports:
-              - port: 80
-                nodePort: 30036
-                protocol: TCP
-                targetport: 8080
-                name: http
-            selector:
-                app: "{{ name_space_name }}-app"
+        definition: "{{ lookup('template', 'service.yml') | from_yaml }}"
+        validate_certs: no
+        namespace: "{{ name_space_name }}"
+         
