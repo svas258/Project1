@@ -12,11 +12,12 @@
         state: present
         validate_certs: no
         namespace: "{{ name_space_name }}"
-        definition: "{{ lookup('template', 'deployment.yml') | from_yaml }}"
+        definition: "{{ lookup('template' ,'deployment.yaml') | from_yaml }}"
+        
     - name: Deploy the service
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('template', 'service.yml') | from_yaml }}"
+        definition: "{{ lookup('template' ,'service.yml') | from_yaml }}"
         validate_certs: no
         namespace: "{{ name_space_name }}"
          
