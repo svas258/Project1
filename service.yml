@@ -11,7 +11,7 @@ spec:
     - port: 80
       nodePort: 30036
       protocol: TCP
-      targetport: 8080
+      targetPort: 8080
       name: http
   selector:
     app: "{{ name_space_name }}-app"
