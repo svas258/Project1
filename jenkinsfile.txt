@@ -51,6 +51,7 @@ pipeline{
             }
          }
          stage ('Deploy'){
+         agent master   
             steps {
                script{
                      def image_id = docker_reg + ":latest"
