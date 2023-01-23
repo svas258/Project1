@@ -42,9 +42,13 @@ pipeline{
         stage('Pushing Docker Image to Dockerhub') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com',docker_cred) {
-                        docker.image("${docker_reg}:${TAG}").push()
-                        docker.image("${docker_reg}:${TAG}").push("latest")
+                     withCredentials([usernamePassword(credentailsId:
+                       'docker-id', passwordVariable:
+                       'docker-idPassword', usernameVariable:
+                       'docker-idUser')]) {
+                                            sh "docker login -u ${env.docker-idUser} -p ${env.docker-idPassword}"
+                                            sh 'docker push ${docker_reg}:${TAG}'
+                                            sh 'docker push ${docker_reg}:latest'
                     }
                 }
             }
