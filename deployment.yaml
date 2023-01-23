@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: "{{ name_space_name }}"
+    name: "{{ name_space_name }}-app"
     namespace: "{{ name_space_name }}"
 spec:
  selector:
@@ -11,7 +11,7 @@ spec:
  template:
     metadata:
         labels:
-        app: "{{ name_space_name }}-app"
+          app: "{{ name_space_name }}-app"
     spec:
       containers:
         - name: "{{ name_space_name }}-container"
