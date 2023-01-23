@@ -27,7 +27,7 @@
                 app: "{{ name_space_name }}-app"
             spec:
               containers:
-                - name:"{{ name_space_name }}-container"
+                - name: "{{ name_space_name }}-container"
                   image: "{{ image_id }}"
                   ports:
                   - containerPort: 80
