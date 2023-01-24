@@ -1,0 +1,19 @@
+---
+- name: build and run Docker
+  hosts: kmaster
+  become: true
+  gather_facts: false
+ 
+  tasks:
+    - name: Push Docker image to Registry
+      docker_image:
+        name: "{{ image_id }}"
+        build:
+          path: /home/edureka/Destop/docker
+          pull: true
+        state: present
+        tag: "latest"
+        force_tag: yes
+        repository: "{{ docker_reg }}:latest"
+        push: yes
+        source: build
