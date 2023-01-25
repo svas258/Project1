@@ -16,6 +16,5 @@
         force_tag: yes
         repository: "{{ docker_reg }}:{{ item }}"
         with_items: "{{ TAG }}"
-          - latest
         push: yes
         source: build
