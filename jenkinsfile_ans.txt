@@ -34,7 +34,7 @@ pipeline{
     }
     stage('Copy the war file to Ansible build') {
             steps {
-                    sh "cp ABC_Technologies/target/*.war" .
+                    sh 'cp ABC_Technologies/target/*.war .'
             }
         }
     stage('Build and pushing Docker Image to Dockerhub') {
