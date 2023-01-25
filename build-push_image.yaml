@@ -1,5 +1,5 @@
 ---
-- name: build and run Docker
+- name: build and push to Dockerhub
   hosts: kmaster
   become: true
   gather_facts: false
