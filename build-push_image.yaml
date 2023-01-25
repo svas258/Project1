@@ -7,13 +7,16 @@
   tasks:
     - name: Push Docker image to Registry
       docker_image:
-        name: "{{ image_id }}"
+        name: ABC_tech_image
         build:
           path: /home/edureka/Destop/docker
           pull: true
         state: present
         tag: "latest"
         force_tag: yes
-        repository: "{{ docker_reg }}:latest"
+        repository: "{{ docker_reg }}:{{ item }}"
+        with_items:
+          - "{{ TAG }}"
+          - latest
         push: yes
         source: build
