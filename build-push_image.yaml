@@ -9,7 +9,7 @@
       docker_image:
         name: ABC_tech_image
         build:
-          path: /home/edureka/Destop/docker
+          path: .
           pull: true
         state: present
         tag: "latest"
