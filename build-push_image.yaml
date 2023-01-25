@@ -14,7 +14,7 @@
         state: present
         tag: "latest"
         force_tag: yes
-        repository: "{{ docker_reg }}:{{ item }}"
-        with_items: "{{ TAG }}"
+        repository: "{{ docker_reg }}:latest"
+        #with_items: "{{ TAG }}"
         push: yes
         source: build
