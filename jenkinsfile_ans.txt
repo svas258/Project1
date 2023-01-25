@@ -9,6 +9,7 @@ pipeline{
         TAG = "${DATE}.${BUILD_NUMBER}"
         docker_reg="srinidocker003/app"
         docker_cred="docker-id"
+        DOCKERHUB_CREDENTIALS= credentials('c')     
       }
    stages {
     stage ('compile') {
@@ -37,12 +38,17 @@ pipeline{
                     sh 'cp ABC_Technologies/target/*.war .'
             }
         }
+        stage('Login to Docker Hub') {      	
+    steps{                       	
+	sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
+	echo 'Login Completed'      
+    }           
+}   
      stage('Pushing Docker Image to Dockerhub') {
             steps {
                    script {
-                        docker.withRegistry('https://registry.hub.docker.com',docker_cred){
+                  
                         sh "ansible-playbook build-push_image.yaml --extra-vars \"docker_reg=${docker_reg}\""
-                        }
                 }
             }
          }
