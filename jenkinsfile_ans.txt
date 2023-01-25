@@ -40,7 +40,7 @@ pipeline{
      stage('Pushing Docker Image to Dockerhub') {
             steps {
                 script {
-                        docker.withRegistry('https://registry.hub.docker.com',docker_cred) {
+                        docker.withRegistry([ credentialsId: "docker_cred", url: "" ]) {
                         sh "ansible-playbook build-push_image.yaml --extra-vars \"docker_reg=${docker_reg}\""
                     
                     }
