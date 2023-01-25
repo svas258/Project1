@@ -46,10 +46,10 @@ pipeline{
 }   
      stage('Pushing Docker Image to Dockerhub') {
             steps {
-                   script {
+                   
                   
                         sh "ansible-playbook build-push_image.yaml --extra-vars \"docker_reg=${docker_reg}\""
-                }
+                
             }
          }
     stage ('Deploy'){
