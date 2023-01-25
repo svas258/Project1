@@ -37,15 +37,11 @@ pipeline{
                     sh 'cp ABC_Technologies/target/*.war .'
             }
         }
-    stage('docker login') {
-      steps{
-           docker.withRegistry('https://registry.hub.docker.com', docker_cred){
-           }
-         }
-      }
     stage('Build and pushing Docker Image to Dockerhub') {
       steps {
+            docker.withRegistry('https://registry.hub.docker.com', docker_cred){
             sh "ansible-playbook build-push_image.yaml --extra-vars \"docker_reg=${docker_reg}\""
+            }
       }
     }
     stage ('Deploy'){
