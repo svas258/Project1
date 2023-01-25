@@ -41,7 +41,8 @@ pipeline{
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com',docker_cred) {
-            sh "ansible-playbook -vvvvv build-push_image.yaml --extra-vars \"docker_reg=${docker_reg}\""
+            sh "sleep 10"
+            sh "ansible-playbook build-push_image.yaml --extra-vars \"docker_reg=${docker_reg}\""
                     
             }
         }
