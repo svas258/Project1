@@ -32,18 +32,18 @@ pipeline{
                }
         }
     }
-    stage('Docker Build') {
+    stage('Copy the war file to Ansible build') {
             steps {
                 script {
-                    docker.build("${docker_reg}:${TAG}")
+                    sh "cp ABC_Technologies/target/*.war .
                 }
             }
         }
-        stage('Pushing Docker Image to Dockerhub') {
+        stage('Build and pushing Docker Image to Dockerhub') {
             steps {
                 script {
                         docker.withRegistry('https://registry.hub.docker.com',docker_cred) {
-                        sh "ansible-playbook  build-push_image.yaml --extra-vars \"image_id=${TAG} docker_reg=${docker_reg}\""
+                        sh "ansible-playbook  build-push_image.yaml --extra-vars \"TAG=${TAG} docker_reg=${docker_reg}\""
                     
                     }
                 }
