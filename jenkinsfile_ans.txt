@@ -39,7 +39,7 @@ pipeline{
         }
     stage('Build and pushing Docker Image to Dockerhub') {
       steps {
-            sh 'echo $docker_cred_PSW | sudo docker login -u $docker_cred_USR --password-stdin'    
+            sh 'sudo docker login -u $docker_cred_USR -p $docker_cred_PSW '    
             sh "ansible-playbook build-push_image.yaml --extra-vars \"docker_reg=${docker_reg}\""
       }
     }
