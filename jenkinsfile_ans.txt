@@ -41,7 +41,7 @@ pipeline{
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com',docker_cred) {
-            sh "ansible-playbook -vvvvv build-push_image.yaml --extra-vars \"TAG=${TAG} docker_reg=${docker_reg}\""
+            sh "ansible-playbook -vvvvv build-push_image.yaml --extra-vars "docker_reg=${docker_reg}""
                     
             }
         }
