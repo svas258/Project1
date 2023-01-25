@@ -2,14 +2,14 @@ pipeline{
    agent any
    tools {
      maven 'maven'
-   }
+    }
    environment {
         EMAIL_TO = 'abc_tec@abc.com'
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
         docker_reg="srinidocker003/app"
         docker_cred="docker-id"
-    }
+      }
    stages {
     stage ('compile') {
         steps{
@@ -37,26 +37,26 @@ pipeline{
                     sh "cp ABC_Technologies/target/*.war" .
             }
         }
-        stage('Build and pushing Docker Image to Dockerhub') {
-            steps {
-                script {
-                        docker.withRegistry('https://registry.hub.docker.com',docker_cred) {
-                        sh "ansible-playbook  build-push_image.yaml --extra-vars \"TAG=${TAG} docker_reg=${docker_reg}\""
+    stage('Build and pushing Docker Image to Dockerhub') {
+      steps {
+        script {
+          docker.withRegistry('https://registry.hub.docker.com',docker_cred) {
+            sh "ansible-playbook  build-push_image.yaml --extra-vars \"TAG=${TAG} docker_reg=${docker_reg}\""
                     
-                    }
-                }
             }
-         }
-         stage ('Deploy'){
-            agent { label 'master'}
-            steps {
-               script{
-                     def image_id = docker_reg + ":latest"
-                     sh "echo $image_id"
-                     sh "ansible-playbook  abc_tech_playbook.yaml --extra-vars \"image_id=${image_id} name_space_name=abc-tech\""
-                     }
-                   }
-           }
+        }
+      }
+    }
+    stage ('Deploy'){
+      agent { label 'master'}
+        steps {
+          script{
+            def image_id = docker_reg + ":latest"
+              sh "echo $image_id"
+                sh "ansible-playbook  abc_tech_playbook.yaml --extra-vars \"image_id=${image_id} name_space_name=abc-tech\""
+          }
+        }
+      }
    }
      post {
         failure {
