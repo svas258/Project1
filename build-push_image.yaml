@@ -14,7 +14,7 @@
         state: present
         tag: "latest"
         force_tag: yes
-        repository: "{{ docker_reg }}:{{ item }}"
+        repository: "{{ docker_reg }}:{{ items }}"
         with_items:
           - "{{ TAG }}"
           - latest
